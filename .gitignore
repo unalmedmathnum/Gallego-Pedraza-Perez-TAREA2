@@ -1,0 +1,6 @@
+# Virtualenv
+venv/
+
+#pass
+src/results/air_quality_least_squares.pdf
+src/results/air_quality_least_squares.tex
