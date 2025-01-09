@@ -1,0 +1,926 @@
+% hello.tex - Our first Latex homework!
+\documentclass[11pt]{article}
+
+\renewcommand{\theequation}{\thesection.\arabic{equation}}
+\usepackage[latin1]{inputenc}
+\usepackage{amsmath,amsthm,amsfonts,amscd,amssymb,amsbsy,epsf}
+\usepackage{verbatim}
+\usepackage{graphicx, subfigure}
+\usepackage{enumerate}
+\usepackage{bbm, dsfont, mathrsfs}
+%\usepackage[default]{frcursive}
+%\usepackage[T1]{fontenc}
+\usepackage{cmbright}
+%\usepackage{mathabx}
+%\usepackage{skak}
+%\usepackage{harmony}
+%\usepackage{fancyhdr}
+\usepackage[document]{ragged2e}
+\usepackage{tikz,colortbl}
+\usepackage{epigraph}
+\usepackage{scrextend}
+\usepackage{mdframed, xcolor}
+\usepackage{url}
+\usepackage{hyperref}
+\usepackage{setspace}
+
+
+%\usepackage[letterpaper]{geometry}
+%\pagestyle{fancy}
+%\lhead{ \fontsize{8}{12} \selectfont \bfseries Escuela de Matem\'aticas. Universidad Nacional de Colombia, Sede Medell\'in.} 
+%\chead{}
+%%\rhead{\bfseries }
+%\lfoot{}
+%\cfoot{}
+%\rfoot{}
+
+%\usepackage{hieroglf}
+%\usepackage{protosem}
+%\usepackage{phoenician}
+
+
+
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{remark}{Remark}[section]
+\newtheorem{corollary}[theorem]{Corollary}
+%\newtheorem{definition}[theorem]{Definition}
+\theoremstyle{definition}	
+\newtheorem{problema}[theorem]{Problema}
+\renewcommand{\thetheorem}{\arabic{theorem}} %Numbering including only chapter
+
+\renewcommand{\theequation}{\arabic{equation}} %Numbering including only chapter
+\newtheorem{problem}[theorem]{Problem}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{definicion}{Definici\'on}
+\newtheorem{discusion}{Discusi\'on}
+%\renewcommand{\deficount}{\arabic{definicion}} %Numbering including only chapter
+%\newtheorem{mddefinicion}[theorem]{Definici\'on}
+%\newenvironment{definicion}%
+%{\begin{mdframed}[backgroundcolor=gray!25, linecolor=black!0]\begin{mddefinicion}}%
+%		{\end{mddefinicion}\end{mdframed} }
+%\renewcommand{\thetheorem}{\roman{theorem}} %Numbering including only chapter
+%\usepackage{sfmath} % to get equations in Sans Serif font the whole document
+%\usepackage{sans} % to get text in Sans Serif font the whole document
+
+%\renewcommand{\familydefault}{\sfdefault}
+%\renewcommand{\familydefault}{\ttdefault}
+%\renewcommand{\rmdefault}{ptm}
+%\renewcommand{\ttdefault}{cou}
+%\newtheorem*{theorem*}{Theorem}
+
+
+
+\voffset -0.5 in
+
+\hoffset -1.2 in
+
+\setlength{\textwidth}{19 cm}
+
+\setlength{\textheight}{21 cm}
+
+
+
+\DeclareMathOperator*{\inv}{inv}
+\DeclareMathOperator*{\per}{per}
+\DeclareMathOperator*{\sgn}{sgn}
+\DeclareMathOperator*{\area}{area}
+%\DeclareMathOperator*{\wt}{wt}
+\DeclareMathOperator*{\Int}{Int}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% MACROS
+\def\Z{\boldsymbol{\mathbbm{Z}}}
+\def\Q{\boldsymbol{\mathbbm{Q}}}
+\def\P{\mathcal{P}}
+\def\A{\mathcal{A}}
+\def\G{\mathcal{G}}
+\def\C{\boldsymbol{\mathbbm{C}}}
+\def\F{\mathcal{F}}
+\def\T{\mathcal{T}}
+\def\B{\mathcal{B}}
+\def\M{\mathcal{M}}
+\def\I{\mathcal{I}}
+\def\N{\boldsymbol{\mathbbm{N}}}
+\def\R{\boldsymbol{\mathbbm{R}}}
+\def\prob{\boldsymbol{\mathbbm{P}}}
+\def\Exp{\boldsymbol{\mathbbm{E}}}
+\def\Var{\boldsymbol{\mathbbm{V}}\!\mathrm{ar}}
+\def\ind{\boldsymbol{\mathbbm{1}}}
+\def\defining{\boldsymbol{\overset{\mathrm{def}}=}}
+\def\D{\mathfrak{D}}
+\def\lcm{\mathrm{lcm}}
+\def\wconv{\overset{w}\rightharpoonup}
+\def\wt{\mathrm{wt}}
+
+%\doublespacing
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{document}
+
+
+\title{\textbf{SEGUNDA TAREA:} M\'inimos cuadrados}
+
+\author{Carlos Andr\'es Gallego Montoya - Gustavo Adolfo P\'erez P\'erez - Sebasti\'an Pedraza Rend\'on}
+\date{2025}
+%
+\maketitle
+%
+
+%
+\begin{enumerate}[(i)]
+%
+%
+
+	\item\textbf{Secci\'on 1: \textcolor{violet}{M\'inimos cuadrados}.}\\
+Sea $\textbf{A}$ una matriz $m \times n$. Decimos que el sistema $\textbf{A}\vec{x} = \vec{b}$ es incosistente, si \'este no tiene soluci\'on alguna (e.j. el caso de tener m\'as ecuaciones que inc\'ognitas). En particular, $\textbf{A}\vec{x} = \vec{b}$ es inconsistente si, y s\'olo si, $\vec{b}$ no est\'a en el espacio generado por las columnas de $\textbf{A}$.\\
+Los sistemas inconsistentes aparecen en variadas situaciones (e.j. gran cantidad de datos a ajustar mediante un polinomio de grado alto) y exigen cierto tratamiento: el m\'etodo no busca encontrar la forma en que $\textbf{A}\vec{x} = \vec{b}$ se satisfaga, sino que busca encontrar un vector, $\vec{y} \in \R^{n}$, tal que $\textbf{A}\vec{y} \approx \vec{b}$ tanto como sea posible.\\
+\vspace{2mm} % Espacio entre líneas.
+------ \textcolor{violet}{An\'alisis} ---------------------------------------------------------------------------------------------------------------------\\
+\vspace{2mm} % Espacio entre líneas.
+Sea $\textbf{A}$ una matriz $m \times n$. Sean $\vec{b}, \vec{y} \in \R^{n}$.\\
+Sea $W$ es espacio generado por las columnas de $\textbf{A}$. Se sabe que el vector $\textbf{A}\vec{y}$ posee la caracter\'istica de que $\vec{b} - \textbf{A}\vec{y}$ es perpendicular al plano generado por $\textbf{A}\vec{y}$. Entonces, para alg\'un $\vec{w} \in W$, se tiene que $\vec{b} - \textbf{A}\vec{w}$ es perpendicular a $\textbf{A}\vec{w}$.\\
+Por definici\'on de proyecci\'on, al tomar $\vec{w} = \mathcal{P}_{W}\vec{b}$, se est\'a escogiendo el vector m\'as cercano a $\vec{b}$ dentro del espacio $W$. Entonces:
+\begin{equation*}
+\vec{b} - \mathcal{P}_{W}\vec{b} = \vec{b} - \textbf{A}\vec{y}
+\end{equation*}
+es ortogonal a todo vector del espacio $W$; implicando que $\vec{b} - \textbf{A}\vec{y}$ sea ortogonal a cada columna de $\textbf{A}$. Expresando todo en t\'erminos matriciales nos resulta:
+\begin{equation*}
+\left(\textbf{A}\vec{x}\right)^{T} \left(\vec{b} - \textbf{A}\vec{y}\right) = 0
+\end{equation*}
+Que se puede expresar como sigue:
+\begin{equation*}
+\vec{x}^{T}\textbf{A}^{T} \left(\vec{b} - \textbf{A}\vec{y}\right) = 0
+\end{equation*}
+Lo que nos entrega el vector $\textbf{A}^{T} \left(\vec{b} - \textbf{A}\vec{y}\right)$ perpendicular a cada vector en $\R^{n}$ (s\'i, incluido \'el mismo). El hecho de poseer dicha propiedad implica que:
+\begin{equation*}
+\textbf{A}^{T} \left(\vec{b} - \textbf{A}\vec{y}\right) = 0
+\end{equation*}
+Y despejando:
+\begin{equation}
+\textbf{A}^{T}\textbf{A}\vec{y} =\textbf{A}^{T}\vec{b}
+\end{equation}
+Donde cualquier soluci\'on de (1) es una soluci\'on por m\'inimos cuadrados del sistema lineal $\textbf{A}\vec{x} = \vec{b}$. Adem\'as, la ecuaci\'on (1) se conoce como sistema normal asociado a $\textbf{A}\vec{x} = \vec{b}$. El proceso de resoluci\'on viene dado por:\\
+(I) Se transforma $\textbf{A}^{T}$ a su forma escalonada reducida por renglones.\\
+(II) Se consideran los transpuestos de los renglones no nulos como base de $W$.\\
+(III) Se aplica Gram-Schmidt para obtener la vase ortonormal de $W$.\\
+(IV) Se resuelve la ecuaci\'on (1).\\
+\vspace{2mm} % Espacio entre líneas.
+\textcolor{violet}{Ejemplo}: Aplicar el m\'etodo con los siguientes elementos:
+\begin{equation*}
+\textbf{A} =
+\begin{pmatrix}
+1 & 2 & -1 & 3\\
+2 & 1 & 1 & 2\\
+-2 & 3 & 4 & 1\\
+4 & 2 & 1 & 0\\
+0 & 2 & 1 & 3\\
+1 & -1 & 2 & 0
+\end{pmatrix}, 
+\vec{b} =
+\begin{pmatrix}
+1\\
+5\\
+-2\\
+1\\
+3\\
+5
+\end{pmatrix}
+\end{equation*}
+Primero verifiquemos el rango de la matriz mediante una reducci\'on por renglones:
+\begin{equation*}
+\textbf{A}_{reducida} =
+\begin{pmatrix}
+1 & 0 & 0 & 0\\
+0 & 1 & 0 & 0\\
+0 & 0 & 1 & 0\\
+0 & 0 & 0 & 1\\
+0 & 0 & 0 & 0\\
+0 & 0 & 0 & 0
+\end{pmatrix}
+\end{equation*}
+Nos entrega que $rango(\textbf{A}) = 4$. Ahora procedemos a solucionar el sistema propuesto:
+\begin{equation*}
+\textbf{A}^{T}\textbf{A} =
+\begin{pmatrix}
+1 & 2 & -1 & 3\\
+2 & 1 & 1 & 2\\
+-2 & 3 & 4 & 1\\
+4 & 2 & 1 & 0\\
+0 & 2 & 1 & 3\\
+1 & -1 & 2 & 0
+\end{pmatrix}^{T}
+\begin{pmatrix}
+1 & 2 & -1 & 3\\
+2 & 1 & 1 & 2\\
+-2 & 3 & 4 & 1\\
+4 & 2 & 1 & 0\\
+0 & 2 & 1 & 3\\
+1 & -1 & 2 & 0
+\end{pmatrix} =
+\begin{pmatrix}
+26 & 5 & -1 & 5\\
+5 & 23 & 13 & 17\\
+-1 & 13 & 24 & 6\\
+5 & 17 & 6 & 23
+\end{pmatrix}
+\end{equation*}
+\begin{equation*}
+\textbf{A}^{T}\vec{b} =
+\begin{pmatrix}
+1 & 2 & -1 & 3\\
+2 & 1 & 1 & 2\\
+-2 & 3 & 4 & 1\\
+4 & 2 & 1 & 0\\
+0 & 2 & 1 & 3\\
+1 & -1 & 2 & 0
+\end{pmatrix}^{T}
+\begin{pmatrix}
+1\\
+5\\
+-2\\
+1\\
+3\\
+5
+\end{pmatrix} = 
+\begin{pmatrix}
+24\\
+4\\
+10\\
+20
+\end{pmatrix}
+\end{equation*}
+Entonces nos resulta que:
+\begin{equation*}
+\textbf{A}^{T}\textbf{A}\vec{y} =\textbf{A}^{T}\vec{b} 
+\end{equation*}
+Se trabaja como:
+\begin{equation*}
+\begin{pmatrix}
+26 & 5 & -1 & 5\\
+5 & 23 & 13 & 17\\
+-1 & 13 & 24 & 6\\
+5 & 17 & 6 & 23
+\end{pmatrix} \vec{y} =
+\begin{pmatrix}
+24\\
+4\\
+10\\
+20
+\end{pmatrix}
+\end{equation*}
+Y que nos da:
+\begin{equation*}
+\vec{y} =
+\begin{pmatrix}
+0.99902\\
+-2.06435\\
+1.10392\\
+1.89023
+\end{pmatrix}
+\end{equation*}
+Como \'unica soluci\'on por m\'inimos cuadrados. Luego, si $W$ es el espacio generado por las columnas de $\textbf{A}$, entonces:
+\begin{equation*}
+\mathcal{P}_{W}\vec{b} = \textbf{A}\vec{y}
+\end{equation*}
+Es decir:
+\begin{equation*}
+\mathcal{P}_{W}\vec{b} \approx
+\begin{pmatrix}
+-0.666531\\
+3.41566\\
+-2.58639\\
+0.9713\\
+0.542289\\
+5.27121
+\end{pmatrix}
+\end{equation*}
+es el vector en $W$ que minimiza la distancia con el vector inicial dado. $\blacksquare$ \\
+\vspace{2mm} % Espacio entre líneas.
+\textcolor{violet}{Error}: Si $\textbf{A}$ es no singular, una soluci\'on por m\'inimos cuadrados ser\'ia la soluci\'on usual. De lo contrario, la norma eucl\'idea del vector residual, que es una medici\'on hacia atr\'as de qu\'e tan distanciado se est\'a de la soluci\'on, tiene la forma:
+\begin{equation*}
+\vec{r} = \vec{b} - \textbf{A}\vec{y}
+\end{equation*}
+Pero hay diversas formas de reportar el error en el c\'alculo. Ya sea mediante la norma tradicional:
+\begin{equation*}
+\|\vec{r}\|_{2} = \sqrt{r_{1}^{2} + \cdots + r_{m}^{2}}
+\end{equation*}
+Mediante el error cuadrado:
+\begin{equation*}
+SE = r_{1}^{2} + \cdots + r_{m}^{2}
+\end{equation*}
+O mediante el medio de la ra\'z de la media del error:
+\begin{equation*}
+RMSE = \frac{\|\vec{r}\|_{2}}{\sqrt{m}}
+\end{equation*}
+Todas estas tres expresiones se relacionan como $RMSE = \frac{\sqrt{SE}}{\sqrt{m}}$ bajo la misma ecuaci\'on.\\
+\vspace{2mm} % Espacio entre líneas.
+\textcolor{violet}{Ejemplo}: Verificar el error del ejemplo:
+\begin{equation*}
+\textbf{A} =
+\begin{pmatrix}
+1 & 2 & -1 & 3\\
+2 & 1 & 1 & 2\\
+-2 & 3 & 4 & 1\\
+4 & 2 & 1 & 0\\
+0 & 2 & 1 & 3\\
+1 & -1 & 2 & 0
+\end{pmatrix}, 
+\textbf{b} =
+\begin{pmatrix}
+1\\
+5\\
+-2\\
+1\\
+3\\
+5
+\end{pmatrix}
+\end{equation*}
+Hallamos el vector residual como primer movimiento:
+\begin{equation*}
+\vec{r} = 
+\begin{pmatrix}
+1\\
+5\\
+-2\\
+1\\
+3\\
+5
+\end{pmatrix} -
+\begin{pmatrix}
+-0.666531\\
+3.41566\\
+-2.58639\\
+0.9713\\
+0.542289\\
+5.27121
+\end{pmatrix}
+\end{equation*}
+que es de la forma:
+\begin{equation*}
+\vec{r} = 
+\begin{pmatrix}
+1.66653\\
+1.58434\\
+0.586387\\
+0.0287\\
+2.45771\\
+-0.27121
+\end{pmatrix}
+\end{equation*}
+Ahora comprobamos los diversos m\'argenes de error:
+\begin{equation*}
+\|\vec{r}\|_{2} = \sqrt{1.66653^{2} + \cdots + (-0.27121)^{2}} = 3.42725
+\end{equation*}
+\begin{equation*}
+SE = 1.66653^{2} + \cdots + (-0.27121)^{2} = 11.746
+\end{equation*}
+\begin{equation*}
+RMSE = \frac{3.42725}{\sqrt{6}} = 1.39917
+\end{equation*}
+Ah\'i se tienen los diversos errores de c\'alculo. $\blacksquare$ \\
+\vspace{2mm} % Espacio entre líneas.
+%\textcolor{violet}{Computaci\'on}:
+%\vspace{2mm} % Espacio entre líneas.
+	\item\textbf{Secci\'on 2: \textcolor{violet}{Ajuste por m\'inimos cuadrados}.}\\
+El problema de recolectar y analizar datos est\'a presente en muchos aspectos de las actividades humanas. Con frecuencia, medimos un valor de $y$ para un valor dado de $x$ y, luego, localizamos los pares $(x, y)$ en el plano.\\
+Dicha gr\'afica se aprovecha para establecer una relaci\'on entre las variables $x$ e $y$ que sirva para predecir nuevos valores de $y$ para dados valores de $x$.\\
+\vspace{2mm} % Espacio entre líneas.
+------ \textcolor{violet}{An\'alisis} ---------------------------------------------------------------------------------------------------------------------\\
+\vspace{2mm} % Espacio entre líneas.
+Supo\'ongase que la relaci\'on entre $x$ e $y$ est\'a dada por una ecuaci\'on lineal. Adem\'as, sup\'ongase que los datos tienen una naturaleza probabil\'istica (i.e. al repetir el experimento los valores de $x$ pueden dar diversas variaciones en sus respectivos $y(x)$).\\
+Sea $\left\lbrace (x_{i}, y_{i}) \right\rbrace$ una colecci\'on de $1 \leq i \leq n$ puntos; donde, por lo menos, dos de las $x_{i}$ son distintas. Entonces estamos interesados en determinar la recta:
+\begin{equation*}
+y = b_{1}x + b_{0}
+\end{equation*}
+que mejor se ajusta a los datos (pues el sistema es inconsistente). Como algunos de estos puntos no est\'an necesariamente sobre la recta, entonces:
+\begin{equation*}
+y_{i} = b_{1}x_{i} + b_{0} + d_{i}
+\end{equation*}
+Donde $d_{i}$ es la desviaci\'on vertical del punto $(x_{i}, y_{i})$ respecto a la recta deseada. Por lo que:\\
+(I) $d_{i} > 0$, si el punto est\'a por encima de la recta.\\
+(II) $d_{i} = 0$, si el punto est\'a en la recta.\\
+(III) $d_{i} < 0$, si el punto est\'a por debajo de la recta.\\
+Planteando todo en forma matricial:
+\begin{equation*}
+\textbf{A} =
+\begin{pmatrix}
+x_{1} & 1\\
+x_{2} & 1\\
+\vdots & \vdots\\
+x_{n} & 1
+\end{pmatrix}, 
+\vec{b} =
+\begin{pmatrix}
+y_{1}\\
+y_{2}\\
+\vdots\\
+y_{n}
+\end{pmatrix}, 
+\vec{x} =
+\begin{pmatrix}
+b_{1}\\
+b_{0}
+\end{pmatrix}, 
+\vec{d} =
+\begin{pmatrix}
+d_{1}\\
+d_{2}\\
+\vdots\\
+d_{n}
+\end{pmatrix}
+\end{equation*}
+Entonces las ecuaciones tienen la forma:
+\begin{equation*}
+\vec{b} = \textbf{A}\vec{x} + \vec{d}
+\end{equation*}
+Al tratar con un sistema inconsistente, se sigue la idea dada en la SECCI\'ON 1. Tambi\'en, como dos de las $x_{i}$ son distintas, entonces $rango(\textbf{A}) = 2$. Lo que nos garantiza que $\textbf{A}^{T}\textbf{A}$ es no singular y el sistema $\textbf{A}\vec{x} = \vec{b}$ tiene soluci\'on \'unica, por m\'inimos cuadrados, dada por:
+\begin{equation}
+\vec{z} = \left(\textbf{A}^{T}\textbf{A}\right)^{-1}\textbf{A}^{T}\vec{b}
+\end{equation}
+De lo anterior, $\textbf{A}\vec{z}$ est\'a lo m\'as cerca posible de $\vec{b}$. As\'i, para cada $x_{i}$ existe $\bar{y}_{i} = b_{1}x_{i} + b$, que son los puntos de la recta dada por el m\'etodo aplicado.\\
+\vspace{2mm} % Espacio entre líneas.
+\textcolor{violet}{Ejemplo}: Se ha dado seguimiento al crecimiento de una planta seg\'un su frecuencia de riego en d\'ias. Todos esos datos se han plasmado en la siguiente tabla:
+\begin{table}[ht]
+\centering
+\begin{tabular}{|c|c|}
+\hline
+\textbf{Frecuencia de Riego} (d\'ias) & \textbf{Altura de la Planta} (cm) \\ \hline
+1.0 (riego diario)  & 68.7\\ \hline
+1.5                & 67.2\\ \hline
+2.0                & 64.5\\ \hline
+2.5                 & 62.1\\ \hline
+3.0 (cada tres)  & 59.8\\ \hline
+3.5                & 57.3\\ \hline
+4.0                 & 54.6\\ \hline
+4.5                & 51.9\\ \hline
+5.0 (cada cinco)  & 49.0\\ \hline
+6.0               & 43.5\\ \hline
+7.0                & 38.7\\ \hline
+8.0              & 33.2\\ \hline
+9.0                 & 28.1\\ \hline
+10.0 (cada diez) & 22.4\\ \hline
+\end{tabular}
+\end{table}\\
+Se determinar\'a una recta que se ajuste a los datos dados. Primero debemos detallar los elementos a usar:
+\begin{equation*}
+\textbf{A} =
+\begin{pmatrix}
+1.0 & 1\\
+1.5 & 1\\
+2.0 & 1\\
+2.5 & 1\\
+3.0 & 1\\
+3.5 & 1\\
+4.0 & 1\\
+4.5 & 1\\
+5.0 & 1\\
+6.0 & 1\\
+7.0 & 1\\
+8.0 & 1\\
+9.0 & 1\\
+10.0 & 1
+\end{pmatrix}, 
+\vec{b} =
+\begin{pmatrix}
+68.7\\
+67.2\\
+64.5\\
+62.1\\
+59.8\\
+57.3\\
+54.6\\
+51.9\\
+49.0\\
+43.5\\
+38.7\\
+33.2\\
+28.1\\
+22.4
+\end{pmatrix}, 
+\vec{x} =
+\begin{pmatrix}
+b_{1}\\
+b_{0}
+\end{pmatrix}
+\end{equation*}
+Entonces nos resulta la siguiente matriz:
+\begin{equation*}
+\textbf{A}^{T}\textbf{A} =
+\begin{pmatrix}
+1.0 & 1\\
+1.5 & 1\\
+2.0 & 1\\
+2.5 & 1\\
+3.0 & 1\\
+3.5 & 1\\
+4.0 & 1\\
+4.5 & 1\\
+5.0 & 1\\
+6.0 & 1\\
+7.0 & 1\\
+8.0 & 1\\
+9.0 & 1\\
+10.0 & 1
+\end{pmatrix}^{T}
+\begin{pmatrix}
+1.0 & 1\\
+1.5 & 1\\
+2.0 & 1\\
+2.5 & 1\\
+3.0 & 1\\
+3.5 & 1\\
+4.0 & 1\\
+4.5 & 1\\
+5.0 & 1\\
+6.0 & 1\\
+7.0 & 1\\
+8.0 & 1\\
+9.0 & 1\\
+10.0 & 1
+\end{pmatrix} =
+\begin{pmatrix}
+426 & 67\\
+67 & 14
+\end{pmatrix}
+\end{equation*}
+junto con el vector:
+\begin{equation*}
+\textbf{A}^{T}\vec{b} =
+\begin{pmatrix}
+1.0 & 1\\
+1.5 & 1\\
+2.0 & 1\\
+2.5 & 1\\
+3.0 & 1\\
+3.5 & 1\\
+4.0 & 1\\
+4.5 & 1\\
+5.0 & 1\\
+6.0 & 1\\
+7.0 & 1\\
+8.0 & 1\\
+9.0 & 1\\
+10.0 & 1
+\end{pmatrix}^{T}
+\begin{pmatrix}
+68.7\\
+67.2\\
+64.5\\
+62.1\\
+59.8\\
+57.3\\
+54.6\\
+51.9\\
+49.0\\
+43.5\\
+38.7\\
+33.2\\
+28.1\\
+22.4
+\end{pmatrix} =
+\begin{pmatrix}
+2805.05\\
+701
+\end{pmatrix}
+\end{equation*}
+Ahora debemos solucionar el sistema:
+\begin{equation*}
+\begin{pmatrix}
+426 & 67\\
+67 & 14
+\end{pmatrix} \vec{x} = 
+\begin{pmatrix}
+2805.05\\
+701
+\end{pmatrix}
+\end{equation*}
+Donde nos resulta que:
+\begin{equation*}
+\vec{x} = 
+\begin{pmatrix}
+-5.21783\\
+75.0425
+\end{pmatrix}
+\end{equation*}
+Por lo tanto, una ecuaci\'on para la recta viene dada como:
+\begin{equation*}
+y = -5.21783x + 75.0425
+\end{equation*}
+Siendo $x$ la frecuencia de riego (d\'ias) e $y$ la altura de la planta.
+\begin{figure}[h!] % "h!" fuerza a la imagen a aparecer aquí
+    \centering
+    \includegraphics[width=0.5\textwidth]{Tabla riego.png} % Inserta la ruta de la imagen
+    \label{fig:ejemplo_imagen} % Etiqueta para referenciar la imagen
+\end{figure}\\
+En la tabla adjunta se alcanza a ver la predicci\'on para el crecimiento de la planta seg\'un la frecuencia de riego a la que sea sometida. Por ejemplo, si la planta se riega cada 6.5 d\'ias, entonces su crecimiento esperado ser\'a de $40.6$ cent\'imetros. $\blacksquare$\\
+\vspace{2mm} % Espacio entre líneas.
+\textcolor{violet}{Error}: El vector $\vec{d}$ cumple con que:
+\begin{equation*}
+\|d\|^{2} = d_{1}^{2} + \cdots + d_{n}^{2}
+\end{equation*}
+es m\'inimo, gracias a la escogencia seg\'un el desarrollo. Y los otros dos errores vistos anteriormente, SE y RMSE, siguen vigentes.\\
+\vspace{2mm} % Espacio entre líneas.
+\textcolor{violet}{Ejemplo}: Verificar el error del ejemplo:
+\begin{equation*}
+\textbf{A} =
+\begin{pmatrix}
+1.0 & 1\\
+1.5 & 1\\
+2.0 & 1\\
+2.5 & 1\\
+3.0 & 1\\
+3.5 & 1\\
+4.0 & 1\\
+4.5 & 1\\
+5.0 & 1\\
+6.0 & 1\\
+7.0 & 1\\
+8.0 & 1\\
+9.0 & 1\\
+10.0 & 1
+\end{pmatrix}, 
+\vec{b} =
+\begin{pmatrix}
+68.7\\
+67.2\\
+64.5\\
+62.1\\
+59.8\\
+57.3\\
+54.6\\
+51.9\\
+49.0\\
+43.5\\
+38.7\\
+33.2\\
+28.1\\
+22.4
+\end{pmatrix}, 
+\vec{x} =
+\begin{pmatrix}
+-5.21783\\
+75.0425
+\end{pmatrix}
+\end{equation*}
+Donde se cumple $\vec{d} = \vec{b} - \textbf{A}\vec{x}$:
+\begin{equation*}
+\vec{d} =
+\begin{pmatrix}
+-1.12467\\
+-0.015755\\
+-0.10684\\
+0.102075\\
+0.41099\\
+0.519905\\
+0.42882\\
+0.337735\\
+0.04665\\
+-0.23552\\
+0.18231\\
+-0.09986\\
+0.01797\\
+-0.4642
+\end{pmatrix}
+\end{equation*}
+Donde $\|d\|^{2} = 2.34079$ es el error entregado, que es equivalente al SE. Adem\'as, se tiene que el RMSE es de $0.4089$. $\blacksquare$ \\
+\vspace{2mm} % Espacio entre líneas.
+%\textcolor{violet}{Computaci\'on}:
+%\vspace{2mm} % Espacio entre líneas.
+	\item\textbf{Secci\'on 3: \textcolor{violet}{Ajuste polinomial por m\'inimos cuadrados}.}\\
+El problema de recolectar y analizar datos est\'a presente en muchos aspectos de las actividades humanas. Con frecuencia, medimos un valor de $y$ para un valor dado de $x$ y, luego, localizamos los pares $(x, y)$ en el plano.\\
+En este caso se trabajar\'a con el polinomio que mejor se ajuste a los datos.\\
+\vspace{2mm} % Espacio entre líneas.
+------ \textcolor{violet}{An\'alisis} ---------------------------------------------------------------------------------------------------------------------\\
+\vspace{2mm} % Espacio entre líneas.
+Sup\'ongase que los datos tienen una naturaleza probabil\'istica (i.e. al repetir el experimento los valores de $x$ pueden dar diversas variaciones en sus respectivos $y(x)$).\\
+Sea $\left\lbrace (x_{i}, y_{i}) \right\rbrace$ una colecci\'on de $1 \leq i \leq n$ puntos; donde, por lo menos, $m + 1$ de las $x_{i}$ son distintos ($m \leq n + 1$). Se desea construir un modelo matem\'atico de la forma:
+\begin{equation*}
+y = a_{m}x^{m} + a_{m-1}x^{m-1} + \cdots + a_{1}x + a_{0}
+\end{equation*}
+que, a su vez. mejor se ajuste a los datos (sistema inconsistente). 
+Se trata bajo el m\'etodo de la SECCI\'ON 1 y se diferencia respecto al m\'etodo de la SECCI\'ON 2 debido a lo siguiente:
+\begin{equation*}
+\textbf{A} =
+\begin{pmatrix}
+x_{1}^{m} & x_{1}^{m - 1} & \cdots & x_{1}^{2} & x_{1} & 1\\
+x_{2}^{m} & x_{2}^{m - 1} & \cdots & x_{2}^{2} & x_{2} & 1\\
+\vdots & \vdots & \ddots & \vdots & \vdots & \vdots\\
+x_{n}^{m} & x_{n}^{m - 1} & \cdots & x_{n}^{2} & x_{n} & 1
+\end{pmatrix}, 
+\vec{b} =
+\begin{pmatrix}
+y_{1}\\
+y_{2}\\
+\vdots\\
+y_{n}
+\end{pmatrix}, 
+\vec{x} =
+\begin{pmatrix}
+a_{m}\\
+a_{m - 1}\\
+\vdots\\
+a_{0}
+\end{pmatrix}, 
+\vec{d} =
+\begin{pmatrix}
+d_{1}\\
+d_{2}\\
+\vdots\\
+d_{n}
+\end{pmatrix}
+\end{equation*}
+Donde nos resulta la forma matricial:
+\begin{equation*}
+\vec{b} = \textbf{A}\vec{x} + \vec{d}
+\end{equation*}
+Como en el caso de la SECCI\'ON 2:
+\begin{equation*}
+\textbf{A}^{T}\textbf{A}\vec{z} = \textbf{A}^{T}\vec{b}
+\end{equation*}
+es una soluci\'on por m\'inimos cuadrados del sistema original.\\
+\vspace{2mm} % Espacio entre líneas.
+\textcolor{violet}{Ejemplo}: Los siguientes datos muestran los contaminantes atmosf\'ericos $y_{i}$ respecto a cierta norma de calidad del aire en intervalos de hora $t_{i}$:
+\begin{table}[ht]
+\centering
+\begin{tabular}{|c|c|}
+\hline
+\textbf{Intervalos de hora} ($t_{i}$) & \textbf{Contaminantes} ($y_{i}$) \\ \hline
+1.0  & -0.15\\ \hline
+1.5  & 0.24\\ \hline
+2.0  & 0.68\\ \hline
+2.5  & 1.04\\ \hline
+3.0  & 1.21\\ \hline
+3.5  & 1.15\\ \hline
+4.0  & 0.86\\ \hline
+4.5  & 0.41\\ \hline
+5.0  & -0.08\\ \hline
+\end{tabular}
+\end{table}\\
+Pasemos a determinar el polinomio que mejor se adapta a los datos. Como se sospecha de cierta forma cuadr\'atica, entonces se porpone un polinomio de la forma $y(x) = a_{2}x^{2} + a_{1}x + a_{0}$. As\'i que tenemos el siguiente sistema:
+\begin{equation*}
+\textbf{A} =
+\begin{pmatrix}
+1 & 1 & 1\\
+2.25 & 1.5 & 1\\
+4 & 2 & 1\\
+6.25 & 2.5 & 1\\
+9 & 3 & 1\\
+12.25 & 3.5 & 1\\
+16 & 4 & 1\\
+20.25 & 4.5 & 1\\
+25 & 5 & 1
+\end{pmatrix}, 
+\vec{b} =
+\begin{pmatrix}
+-0.15\\
+0.24\\
+0.68\\
+1.04\\
+1.21\\
+1.15\\
+0.86\\
+0.41\\
+-0.08
+\end{pmatrix}, 
+\vec{x} =
+\begin{pmatrix}
+a_{2}\\
+a_{1}\\
+a_{0}
+\end{pmatrix}
+\end{equation*}
+Donde $rango(\textbf{A}) = 3$ nos anticipa un sistema normal de la forma:
+\begin{equation*}
+\begin{pmatrix}
+1583.25 & 378 & 96\\
+378 & 96 & 27\\
+96 & 27 & 9
+\end{pmatrix}\vec{x} = 
+\begin{pmatrix}
+54.65\\
+16.71\\
+5.36
+\end{pmatrix}
+\end{equation*}
+Con respuesta:
+\begin{equation*}
+\vec{x} =
+\begin{pmatrix}
+-0.327446\\
+2.00668\\
+-1.93171
+\end{pmatrix}
+\end{equation*}
+\begin{figure}[h!] % "h!" fuerza a la imagen a aparecer aquí
+    \centering
+    \includegraphics[width=0.5\textwidth]{Contaminantes.png} % Inserta la ruta de la imagen
+    \label{fig:ejemplo_imagen} % Etiqueta para referenciar la imagen
+\end{figure}\\
+Lo que nos entrega la f\'ormula:
+\begin{equation*}
+y = -0.327446t^{2} + 2.00668t - 1.93171
+\end{equation*}
+Siendo $t$ el intervalo de hora e $y$ la cantidad de contaminaci\'on presente; donde se nota que los puntos no necesariamente tocan la gr\'afica, pues basta con tener un bajo error en $\vec{d}$. $\blacksquare$ \\
+\vspace{2mm} % Espacio entre líneas.
+\textcolor{violet}{Error}: La soluci\'on del sistema normal y su veracidad respecto al sistema original depende del n\'umero de condicionamiento de $\textbf{A}^{T}\textbf{A}$; lo que restringe la versatilidad del m\'etodo. En particular, $\kappa\left(\textbf{A}^{T}\textbf{A}\right)$ es un n\'umero demasiado grande para trabajar con aritm\'etica de doble presici\'on.\\
+Aunque, en general, el error viene dado por:
+\begin{equation*}
+\|d\|^{2} = d_{1}^{2} + \cdots + d_{n}^{2}
+\end{equation*}
+y se trabaja igual que en la SECCI\'ON 2. \\
+\vspace{2mm} % Espacio entre líneas.
+\textcolor{violet}{Ejemplo}: Verificar el error del ejemplo:
+\begin{equation*}
+\textbf{A} =
+\begin{pmatrix}
+1 & 1 & 1\\
+2.25 & 1.5 & 1\\
+4 & 2 & 1\\
+6.25 & 2.5 & 1\\
+9 & 3 & 1\\
+12.25 & 3.5 & 1\\
+16 & 4 & 1\\
+20.25 & 4.5 & 1\\
+25 & 5 & 1
+\end{pmatrix}, 
+\vec{b} =
+\begin{pmatrix}
+-0.15\\
+0.24\\
+0.68\\
+1.04\\
+1.21\\
+1.15\\
+0.86\\
+0.41\\
+-0.08
+\end{pmatrix}, 
+\vec{x} =
+\begin{pmatrix}
+a_{2}\\
+a_{1}\\
+a_{0}
+\end{pmatrix}
+\end{equation*}
+Aplicamos las f\'ormulas dadas y verificamos:
+\begin{equation*}
+\vec{d} =
+\begin{pmatrix}
+0.102476\\
+-0.101557\\
+-0.091866\\
+0.001548\\
+0.068684\\
+0.069544\\
+0.004126\\
+-0.057569\\
+0.00446\\
+\end{pmatrix}
+\end{equation*}
+Donde $\|d\|^{2} = 0.042162$ es el error entregado, que es equivalente al SE. Adem\'as, se tiene que el RMSE es de $0.068444$. Por otra parte, el n\'umero de condicionamiento es $\kappa\left(\textbf{A}^{T}\textbf{A}\right) = 1679.77$ considerablemente alto .$\blacksquare$ \\
+%
+\item\textbf{Secci\'on extra: \textcolor{violet}{M\'inimos cuadrados mediante factorizaci\'on QR}.}\\
+Como el m\'etodo llega a depender del condiconamiento de la matriz (v\'ease SECCI\'ON 3), el tratamiento de dicho n\'umero puede optimizar el proceso de m\'inimos cuadrados. Para eso se suele implementar la factorizaci\'on $\textbf{QR}$ al desarrollo del m\'etodo.\\
+\vspace{2mm} % Espacio entre líneas.
+------ \textcolor{violet}{An\'alisis} ---------------------------------------------------------------------------------------------------------------------\\
+\vspace{2mm} % Espacio entre líneas.
+Como tenemos que una soluci\'on por m\'inimos cuadrados $\vec{x}$ del sistema l\'ineal $\textbf{A}\vec{x}$ = $\vec{b}$ es una soluci\'on de
+\begin{equation*}
+    \textbf{A}^{T}\textbf{A}\vec{x} = \textbf{A}^{T}\vec{b}
+\end{equation*}
+Adem\'as como este es el sistema norma asociado a $\textbf{A}\vec{x} = \vec{b}$, t\'omese $\textbf{A} = \textbf{QR}$ como una factorizaci\'on \textbf{QR} de \textbf{A}. Al sustituir esta expresi\'on para la matriz, tenemos que:
+\begin{equation*}
+    (\textbf{QR})^{T}(\textbf{QR})\vec{x} = (\textbf{QR})^{T}\vec{b}
+\end{equation*}
+\begin{equation*}
+    \textbf{R}^{T}(\textbf{Q}^{T}\textbf{Q})\textbf{R}\vec{x} = \textbf{R}^{T}\textbf{Q}^{T}\vec{b}
+\end{equation*}
+Como las columnas de \textbf{Q} forman un conjunto ortonormal, tenemos que $\textbf{Q}^{T}\textbf{Q} = \textbf{I}_{m}$. Por lo tanto:
+\begin{equation*}
+    \textbf{R}^{T}\textbf{R}\vec{x} = \textbf{R}^{T}\textbf{Q}^{T}\vec{b}
+\end{equation*}
+Como $\textbf{R}^{T}$ es no singular, podemos concluir que $\textbf{R}\vec{x} = \textbf{Q}^{T}\vec{b}$.\\
+As\'i, al \textbf{R} ser triangular superior, el sistema se puede desarrollar mediante una sustituci\'on regresiva para obtener $\vec{x}$.
+
+%
+\end{enumerate}
+%
+%
+
+\paragraph{\textbf{BIBLIOGRAF\'IA}}:\\
+$\cdot$ Sauer, T. (2012). \textit{Numerical Analysis, second edition}. PEARSON.\\
+$\cdot$ Burden, L. R.; Faires, J. D.; Burden, M. A. (2016). \textit{Numerical Analysis, tenth edition}. CENGAGE Learning.\\
+$\cdot$ Kolman, B. (1999). \textit{\'Algebra lineal con aplicaciones y MatLab, sexta edici\'on}. PEARSON education.
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%
+%
+%
+\end{document}
+%
+%
+%
+%
