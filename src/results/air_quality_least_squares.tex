@@ -1,0 +1,89 @@
+\documentclass[a4paper,12pt]{article} % Clase del documento
+\usepackage[utf8]{inputenc} % Codificación para caracteres especiales
+\usepackage[spanish]{babel} % Soporte para el idioma español
+\usepackage{amsmath} % Para escribir ecuaciones matemáticas
+\usepackage{amsfonts} % Fuentes matemáticas adicionales
+\usepackage{amssymb} % Símbolos matemáticos adicionales
+\usepackage{graphicx} % Para incluir imágenes
+\usepackage{float} % Para controlar la posición de las figuras (con [H])
+\usepackage{geometry} % Ajustar márgenes de la página
+\usepackage{hyperref} % Para enlaces clicables (opcional, pero útil)
+\geometry{top=2.5cm, bottom=2.5cm, left=3cm, right=3cm}
+\title{Análisis de la Calidad del Aire en Medellín utilizando Regresión Lineal por Mínimos Cuadrados}
+\author{Carlos Gallego, Gustavo Pérez, Sebastian Pedraza}
+\date{\today}
+
+\begin{document}
+
+\maketitle
+
+\section{Análisis de Resultados}
+
+\subsection{Interpretación de los Resultados}
+
+Para estudiar la evolución de la concentración de PM2.5 a lo largo del tiempo, se ajustó un modelo de regresión lineal. La ecuación obtenida es la siguiente:
+
+\begin{equation}
+    \text{PM2.5} = m \cdot \text{Days} + b
+\end{equation}
+
+donde:
+\begin{itemize}
+    \item \(\text{Days}\) es la cantidad de días transcurridos desde la fecha más antigua en el conjunto de datos.
+    \item \(m\) es la pendiente, que representa la tasa de cambio promedio de PM2.5 por día.
+    \item \(b\) es el intercepto o valor inicial estimado cuando \(\text{Days} = 0\).
+\end{itemize}
+
+En nuestro caso, los valores específicos obtenidos son:
+\[
+m \approx 0.012, \quad b \approx 65.345
+\]
+
+Para evaluar cuantitativamente el ajuste, se calculó el \textit{Mean Squared Error} (MSE) y el \textit{Root Mean Squared Error} (RMSE):
+
+\[
+\text{MSE} \approx 231.69,
+\quad
+\text{RMSE} \approx 15.22.
+\]
+
+Estos resultados indican que, en promedio, el modelo lineal predice la concentración de PM2.5 con un error de alrededor de 15.22 unidades respecto a los valores observados.
+
+\subsection{Discusión de la Calidad del Ajuste y Limitaciones}
+
+La Figura~\ref{fig:pm25_regresion_lineal} muestra los datos reales junto con la línea de regresión. Se observa una gran dispersión en las mediciones de PM2.5 a lo largo del tiempo, lo que sugiere que hay múltiples factores (climáticos, humanos, geográficos, etc.) que influyen en la concentración de contaminantes, y no todos están siendo considerados en este modelo.
+
+Algunas limitaciones son:
+\begin{itemize}
+    \item \textbf{Variabilidad considerable:} El alto nivel de ruido dificulta que la recta de regresión explique la mayor parte de la variación de los datos.
+    \item \textbf{Modelo lineal sencillo:} Es posible que la contaminación siga patrones no lineales o estacionales que un modelo lineal no captura.
+    \item \textbf{Falta de variables adicionales:} Factores como tráfico, actividades industriales o parámetros meteorológicos no han sido incluidos y podrían ayudar a mejorar la explicación del fenómeno.
+\end{itemize}
+
+\subsection{Propuestas de Mejora o Enfoques Alternativos}
+
+Para mejorar el ajuste y obtener predicciones más realistas, sugerimos:
+\begin{itemize}
+    \item \textbf{Usar modelos polinómicos o de series de tiempo:} Un modelo de segundo o tercer grado, o un método específico para datos estacionales, podría capturar ciclos o tendencias más complejas.
+    \item \textbf{Incluir variables adicionales:} Información climática (temperatura, humedad, velocidad del viento) y de tráfico podrían mejorar significativamente la capacidad predictiva.
+    \item \textbf{Aplicar técnicas de Machine Learning:} Algoritmos como Random Forest, Gradient Boosting o incluso Redes Neuronales pueden manejar relaciones más complejas en los datos.
+\end{itemize}
+
+\subsection{Visualización de los Resultados}
+
+En la Figura 01 se presenta el gráfico de dispersión de los valores reales de PM2.5 y la línea de ajuste lineal. Además, se incluye en la gráfica el valor del MSE y RMSE para facilitar la interpretación visual:
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.75\textwidth]{figures/pm25_regresion_lineal.png}
+    \caption{Regresión lineal de la concentración de PM2.5 a lo largo de los días.}
+    \label{fig:pm25_regresion_lineal}
+\end{figure}
+
+Se evidencia que, pese a la línea de tendencia ligeramente creciente, la alta dispersión de los puntos sugiere la influencia de múltiples factores no controlados por el modelo, limitando su capacidad predictiva.
+
+\subsection{Conclusiones}
+
+En síntesis, la regresión lineal permite observar una tendencia promedio, pero el error cuantificado mediante MSE y RMSE revela que existe gran variabilidad no explicada por el modelo. Por ello, se recomienda emplear enfoques de modelado más sofisticados y la inclusión de variables relevantes para capturar mejor la dinámica de la contaminación del aire en el barrio Belén de Medellín.
+
+\end{document}
